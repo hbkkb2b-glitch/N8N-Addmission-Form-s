@@ -1,0 +1,298 @@
+{
+  "name": "Addmision Forms Submission",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Addmission Form",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Name"
+            },
+            {
+              "fieldLabel": "Address"
+            },
+            {
+              "fieldLabel": "Contact",
+              "fieldType": "number"
+            },
+            {
+              "fieldLabel": "Age",
+              "fieldType": "number"
+            },
+            {
+              "fieldLabel": "Email",
+              "fieldType": "email"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.5,
+      "position": [
+        0,
+        0
+      ],
+      "id": "3914ad3d-f7f1-41a1-8950-97463cb2396b",
+      "name": "On form submission",
+      "webhookId": "cbd69578-6c92-4cd8-8510-b2d450e8f494"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1BZQt8Y3s1vgPA-1cxsSnAjXnulo11fkALi5r03ai1bE",
+          "mode": "list",
+          "cachedResultName": "Addmission Form",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BZQt8Y3s1vgPA-1cxsSnAjXnulo11fkALi5r03ai1bE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BZQt8Y3s1vgPA-1cxsSnAjXnulo11fkALi5r03ai1bE/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Address",
+              "displayName": "Address",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Contact",
+              "displayName": "Contact",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Age",
+              "displayName": "Age",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        224,
+        0
+      ],
+      "id": "ff254376-7f72-40d4-a62b-86a7b3c6c992",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "HdnMAj1kai7OzoF4",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.Email }}",
+        "subject": "Your addmission Form has Been Received",
+        "message": "=Dear [{{ $json.Name }}],  Thank you for submitting your admission form. We have successfully received your details. Our team will review your application and get back to you shortly. Meanwhile, if you have any questions, feel free to contact us.  Best regards,   [Habeeb Academy]]",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        448,
+        0
+      ],
+      "id": "4d38dfe9-0aee-408c-aaef-ed96b9aed51e",
+      "name": "Send a message",
+      "webhookId": "93731c96-08b5-483a-be58-2bad2522ecee",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "Lmx1hjMCQM5Dnwkf",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "bf6a1e8d-b910-4a14-bfe7-adc8d760f458",
+              "leftValue": "Age",
+              "rightValue": "20",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        672,
+        0
+      ],
+      "id": "7087bac2-7d2e-4625-a3d5-5144249d1a33",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "sendTo": "habeebkhannn87@gmail.com",
+        "subject": "True branch form submission",
+        "message": "one new form submitted from true branch",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        896,
+        -96
+      ],
+      "id": "b3ecb7ae-ede1-48c0-ad4f-9c71e2fd0cfb",
+      "name": "Send a message1",
+      "webhookId": "cf76ec62-3ee5-4655-9c52-e75eb1e5ebee",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "Lmx1hjMCQM5Dnwkf",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "habeebkhannn87@gmail.com",
+        "subject": "False branch form submission",
+        "message": "one new form submitted from true branch",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        896,
+        96
+      ],
+      "id": "8b3890d7-9665-456a-a2b3-1c3e268420dd",
+      "name": "Send a message2",
+      "webhookId": "ffe2eda3-1cee-4ed8-9622-e467a59d43a1",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "Lmx1hjMCQM5Dnwkf",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Send a message1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a message2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "d11f7c7e-12d0-405b-9090-241074e2400e",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "75b521fc8eaea03ade38b0860f7012ecb6bd0e6a304c1cad26de4ba37a6c69ae"
+  },
+  "id": "BJpD9o7WYvRXsG-jDn0j_",
+  "tags": []
+}
